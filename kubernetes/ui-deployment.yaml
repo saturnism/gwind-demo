@@ -40,9 +40,9 @@ spec:
       - name: weather-control-ui
         image: saturnism/weather-control-ui:latest
         args:
-        - -Dweather-data.endpoint=http://weather-data-service:8080/weather
-        - -Dweather-control.endpoint=http://weather-control-service:8080/api/weatherControlLogs
-        - -Dredis.endpoint=tcp://redis:6379
+        - --weather-data.endpoint=http://weather-data-service:8080/weather
+        - --weather-control.endpoint=http://weather-control-service:8080/api/weatherControlLogs
+        - --redis.endpoint=tcp://redis:6379
         readinessProbe:
           httpGet:
             path: /health

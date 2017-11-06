@@ -17,6 +17,7 @@ package com.google.wind.ui;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +57,10 @@ public class WeatherUiController {
   public String request(@RequestParam String name, @RequestParam String city, @RequestParam String condition, Model model) {
     model.addAttribute("name", name);
     model.addAttribute("city", city);
+
+    if (StringUtils.isEmpty(name) || StringUtils.isEmpty(city)) {
+      return "redirect:/";
+    }
 
     Map<String, String> req = new HashMap<>();
     req.put("name", name);

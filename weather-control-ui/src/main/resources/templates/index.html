@@ -17,10 +17,13 @@
 <head>
     <title>Google Wind Control Center</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+
     <meta charset="utf-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
     <style>
       body { padding-top: 80px; }
+      form { width: 420px; float: left; }
       form span { font-weight: bold; padding-right: 1em; display: block; }
       form input[type="submit"] { display: block; margin-top: 1em; }
       .weather-data { padding-bottom: 0.5em; }
@@ -34,23 +37,20 @@
         text-align: left;
         border-bottom: 1px solid #ddd;
       }
+
+      .slider-vertical { height: 120px; float: margin: 10px; }
+      .control { width: 100px; float: left; }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            <img src="wind-icon.png" height="50" style="float: left;"/>
             <a class="navbar-brand" href="#">Google Wind Control Center</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -64,6 +64,28 @@
             <span>Desired Weather</span><input type="text" name="condition" th:value="${condition}"/>
             <input type="submit" value="Request"/>
         </form>
+    </div>
+    <div>
+        <div class="control">
+            <span>Temperature</span>
+            <div class="slider-vertical"></div>
+        </div>
+        <div class="control">
+            <span>Humidity</span>
+            <div class="slider-vertical"></div>
+        </div>
+        <div class="control">
+            <span>Wind Speed</span>
+            <div class="slider-vertical"></div>
+        </div>
+        <div class="control">
+            <span>UV</span>
+            <div class="slider-vertical"></div>
+        </div>
+        <div class="control">
+            <span>Bid ($)</span>
+            <div class="slider-vertical"></div>
+        </div>
     </div>
 
     <div th:if="${weatherData != null}" class="weather-data">
@@ -84,8 +106,26 @@
     </table>
 </div>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script>
+   $(document).ready(function() {
+     $('.slider-vertical').slider({
+       orientation: "vertical",
+         range: "min",
+         min: 0,
+         max: 100,
+         value: randomValue(0, 100)
+     });
+   });
+
+   function randomValue(min, max) {
+     return Math.floor(Math.random() * (max - min + 1)) + min
+   }
+</script>
 
 </body>
 </html>
